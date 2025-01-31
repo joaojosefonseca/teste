@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuidados Paliativos - Guia Interativo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-4">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold text-center mb-8 text-indigo-800">Curso Introdutório aos Cuidados Paliativos</h1>
+        
+        <div class="space-y-4">
+            <!-- Tema 1 -->
+            <div class="bg-white rounded-lg shadow-md p-4">
+                <button class="w-full flex justify-between items-center text-left font-semibold text-lg text-indigo-700" onclick="toggle('definicao-content')">
+                    <span>Definição e Objetivos dos Cuidados Paliativos</span>
+                    <span class="text-2xl">+</span>
+                </button>
+                <div id="definicao-content" class="hidden mt-4 space-y-4">
+                    <!-- Definição -->
+                    <div class="ml-4">
+                        <h3 class="font-semibold text-indigo-600">Definição:</h3>
+                        <ul class="list-disc ml-6 mt-2">
+                            <li>Abordagem humanizada e integral</li>
+                            <li>Melhora da qualidade de vida</li>
+                            <li>Suporte emocional e espiritual</li>
+                            <li>Preservação da autonomia</li>
+                            <li>Abrangência em qualquer estágio da doença</li>
+                        </ul>
+                    </div>
+                    <!-- Objetivos -->
+                    <div class="ml-4">
+                        <h3 class="font-semibold text-indigo-600">Objetivos:</h3>
+                        <ul class="list-disc ml-6 mt-2">
+                            <li>Alívio do sofrimento total</li>
+                            <li>Apoio emocional e espiritual</li>
+                            <li>Preservação da autonomia</li>
+                            <li>Suporte à família</li>
+                            <li>Abordagem multidisciplinar</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Linha do Tempo -->
+            <div class="bg-white rounded-lg shadow-md p-4">
+                <button class="w-full flex justify-between items-center text-left font-semibold text-lg text-indigo-700" onclick="toggle('timeline-content')">
+                    <span>Linha do Tempo dos Cuidados Paliativos</span>
+                    <span class="text-2xl">+</span>
+                </button>
+                <div id="timeline-content" class="hidden mt-4">
+                    <div class="ml-4 space-y-2">
+                        <div class="flex items-center">
+                            <div class="w-4 h-4 bg-indigo-500 rounded-full"></div>
+                            <div class="ml-4">Início no diagnóstico</div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-4 h-4 bg-indigo-500 rounded-full"></div>
+                            <div class="ml-4">Acompanhamento durante todo o tratamento</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mitos e Verdades -->
+            <div class="bg-white rounded-lg shadow-md p-4">
+                <button class="w-full flex justify-between items-center text-left font-semibold text-lg text-indigo-700" onclick="toggle('myths-content')">
+                    <span>Mitos e Verdades</span>
+                    <span class="text-2xl">+</span>
+                </button>
+                <div id="myths-content" class="hidden mt-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-red-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-red-700 mb-2">Mitos:</h3>
+                            <ul class="list-disc ml-6">
+                                <li>CP só começam quando nada mais pode ser feito</li>
+                                <li>Apenas pacientes com câncer recebem CP</li>
+                                <li>Oferecer CP acelera a morte</li>
+                            </ul>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-green-700 mb-2">Verdades:</h3>
+                            <ul class="list-disc ml-6">
+                                <li>CP devem ser iniciados junto ao diagnóstico</li>
+                                <li>Qualquer doença grave pode se beneficiar</li>
+                                <li>Objetivo é conforto e dignidade</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggle(id) {
+            const element = document.getElementById(id);
+            const isHidden = element.classList.contains('hidden');
+            element.classList.toggle('hidden');
+            const button = element.previousElementSibling;
+            button.querySelector('span:last-child').textContent = isHidden ? '-' : '+';
+        }
+    </script>
+<script>window.parent.postMessage({ action: "ready" }, "*"); 
+ 
+window.console = new Proxy(console, {
+  get(target, prop) {
+    if (['log', 'warn', 'error'].includes(prop)) {
+      return new Proxy(target[prop], {
+        apply(fn, thisArg, args) {
+          fn.apply(thisArg, args);
+          window.parent.postMessage({ action: 'console', 
+            type: prop, 
+            args: args.map((arg) => {
+              try {
+                return JSON.stringify(arg).replace(/^["']|["']$/g, '');
+              } catch (e) {
+                return arg;
+              }
+            }) 
+          }, '*');
+        }
+      });
+    }
+    return target[prop];
+  }
+});
+</script></body>
+</html>
